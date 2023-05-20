@@ -3,8 +3,10 @@
 const mongoose = require("mongoose");
 
 
+console.log(process.env.MONGO_URL);
 
-function getConnection(){
+
+async function getConnection(){
     return mongoose.connect(process.env.MONGO_URL,{
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -13,4 +15,3 @@ function getConnection(){
   };
 
   module.exports=getConnection;
-  
