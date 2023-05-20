@@ -1,7 +1,12 @@
 const express = require('express');
 
+const getConnection=require('./Database/connection');
+
 
 const app=express();
+
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 
 app.get('/',(req,res)=>{
 
@@ -9,5 +14,6 @@ app.get('/',(req,res)=>{
 })
 
 app.listen(4000, ()=>{
-    console.log("Server listens at 4000");
+    getConnection.then(()=>console.log("Server is up and running with the database")).catch(()=>console.log("DB Connection Failed"));
+    
 })
