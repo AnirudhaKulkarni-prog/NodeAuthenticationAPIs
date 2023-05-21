@@ -4,6 +4,7 @@ const express = require('express');
 const getConnection=require('./Database/connection');
 
 const Auth=require('./API/Auth/auth.js')
+const PORT =process.env.PORT || 4000;
 
 
 const app=express();
@@ -25,7 +26,7 @@ app.get('/',(req,res)=>{
 
 
 // set the server up
-app.listen(4000, ()=>{
+app.listen(PORT, ()=>{
     getConnection().then(()=>console.log("Server is up and running with the database")).catch(()=>console.log("DB Connection Failed"));
 
 })
