@@ -6,11 +6,11 @@ const jwt=require("jsonwebtoken");
 
 //defined a userschema
 const UserSchema = new mongoose.Schema({
-  firstName: {
+  first_name: {
     type: String,
     required: true,
   },
-  lastName: {
+  last_name: {
     type: String,
     required: true,
   },
@@ -42,7 +42,7 @@ UserSchema.methods.generateJwtToken = function() {
 UserSchema.statics.findByEmailAndPassword = async ({ email, password }) => {
     //check whether the email exists
     const user = await UserModel.findOne({email});
-  if(!user) throw new Error("User doesnot exist");
+    if(!user) throw new Error("User does not exist");
   
     //compare password
     const doesPasswordMatch = await bcrypt.compare(password, user.password);
@@ -53,11 +53,21 @@ UserSchema.statics.findByEmailAndPassword = async ({ email, password }) => {
     return user;
 };
 
+//check if already signed up
+UserSchema.statics.findByEmail = async ({email}) => {
+    //check whether the email exists
+    const user = await UserModel.findOne({email});
+    if(user) throw new Error("User exists already ");
+  
+
+    return user;
+};
+
 
 //hashing the password and saving the user(it helps during sign up post request)
 UserSchema.pre("save",function(next){
     const user = this;
-  
+    console.log(user);
   //password is not modified
     if(!user.isModified("password")) return next();
   
@@ -76,8 +86,8 @@ UserSchema.pre("save",function(next){
     });
   });
 
-const User = mongoose.model('User', UserSchema);
+const UserModel = mongoose.model('Users', UserSchema);
 
-module.exports = User;
+module.exports = UserModel;
 
   

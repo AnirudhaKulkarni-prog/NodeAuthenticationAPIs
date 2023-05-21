@@ -1,9 +1,9 @@
 require('dotenv').config();
-const express = require('express');
 
+const express = require('express');
 const getConnection=require('./Database/connection');
 
-console.log();
+const Auth=require('./API/Auth/auth.js')
 
 
 const app=express();
@@ -13,6 +13,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 
+//API Mapping
+app.use("/auth",Auth);
 
 
 //test if the server is up and running
