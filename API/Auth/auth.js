@@ -34,8 +34,7 @@ Router.post("/signup", async(req,res) => {
     //DB
      const newUser = await UserModel.create(req.body);
 
-     console.log(newUser);
-  
+    
      //JWT Auth Token
      const token = newUser.generateJwtToken();
   
